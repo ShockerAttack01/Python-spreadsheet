@@ -1,7 +1,7 @@
 const SHEET_ID = '1TUwR0vjcqEkGqFDc4nuekuN2wOgjQiJr2-N6JWCMlZc';
 const SHEET_NAME = 'Sheet1';
 const ALLOWED_EMAIL = 'fortnitekai77@gmail.com';
-const HEADERS = ['Date', 'Item', 'Category', 'Amount', 'Notes'];
+const HEADERS = ['Date', 'Item', 'Category', 'Amount', 'Notes', 'Time'];
 
 function doGet(event) {
   const params = event.parameter || {};
@@ -12,7 +12,8 @@ function doGet(event) {
   const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
   ensureHeaders(sheet);
   if (params.action === 'add') {
-    sheet.appendRow([params.date, params.item, params.category || 'General', params.amount, params.notes || '']);
+    const time = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'h:mm a');
+    sheet.appendRow([params.date, params.item, params.category || 'General', params.amount, params.notes || '', time]);
   }
   const values = sheet.getDataRange().getDisplayValues();
   const rows = values.slice(1).slice(-20).reverse().map(row => Object.fromEntries(HEADERS.map((key, index) => [key, row[index] || ''])));
@@ -20,7 +21,11 @@ function doGet(event) {
 }
 
 function ensureHeaders(sheet) {
-  if (sheet.getLastRow() === 0) sheet.appendRow(HEADERS);
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(HEADERS);
+  } else if (sheet.getRange(1, 6).getDisplayValue() !== 'Time') {
+    sheet.getRange(1, 6).setValue('Time');
+  }
 }
 
 function jsonp(callback, data) {
