@@ -17,7 +17,8 @@ function doGet(event) {
   }
   const values = sheet.getDataRange().getDisplayValues();
   const rows = values.slice(1).slice(-20).reverse().map(row => Object.fromEntries(HEADERS.map((key, index) => [key, row[index] || ''])));
-  return jsonp(params.callback, { rows: rows, added: params.action === 'add' });
+  const stores = [...new Set(values.slice(1).map(row => String(row[6] || '').trim()).filter(Boolean))].sort();
+  return jsonp(params.callback, { rows: rows, stores: stores, added: params.action === 'add' });
 }
 
 function ensureHeaders(sheet) {
