@@ -21,6 +21,8 @@ The sheet uses a `Type` column to distinguish `Purchase` and `Income` rows. The 
 
 To customize the appearance, edit `docs/theme.css`. Its variables are grouped by page surfaces, text, actions, and chart states; GitHub Pages loads that file automatically.
 
+The `Import CSV` tab accepts CSV files with headers such as `Date`, `Item` or `Source`, `Category`, `Amount`, `Notes`, `Time`, `Store`, and `Type`. It adds valid new rows and skips matching rows; uploads are limited to 500 KB because GitHub Pages sends the file through the Apps Script URL.
+
 The Apps Script URL is visible in the page, but requests are restricted to your Google account. Keep the spreadsheet private and never commit `credentials.json`; revoke the service-account key that was exposed during setup before using the Flask version or deploying it elsewhere.
 
 ## Local Flask version
