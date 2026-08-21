@@ -23,6 +23,9 @@
   --success: #a8d8c1;
   --mint: #a8d8c1;
   --error: #ff9a83;
+  --tab-active-bg: #a8d8c1;
+  --tab-active-text: #15231d;
+  --tab-border: #3a403c;
 
   /* Chart series and chart states */
   --spent: #ed684d;
