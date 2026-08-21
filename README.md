@@ -17,6 +17,8 @@ GitHub Pages hosts the phone webpage from `docs/index.html`. Google Apps Script 
 
 Share the spreadsheet with the Google account that owns the Apps Script project. The GitHub Pages site will then be available at `https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/` without port forwarding.
 
+The sheet uses a `Type` column to distinguish `Purchase` and `Income` rows. The Overview tab calculates spent, earned, and balance for today, this week, this month, or this year and plots the matching entries.
+
 The Apps Script URL is visible in the page, but requests are restricted to your Google account. Keep the spreadsheet private and never commit `credentials.json`; revoke the service-account key that was exposed during setup before using the Flask version or deploying it elsewhere.
 
 ## Local Flask version

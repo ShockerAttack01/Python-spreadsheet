@@ -1,7 +1,7 @@
 const SHEET_ID = '1TUwR0vjcqEkGqFDc4nuekuN2wOgjQiJr2-N6JWCMlZc';
 const SHEET_NAME = 'Sheet1';
 const ALLOWED_EMAIL = 'fortnitekai77@gmail.com';
-const HEADERS = ['Date', 'Item', 'Category', 'Amount', 'Notes', 'Time', 'Store'];
+const HEADERS = ['Date', 'Item', 'Category', 'Amount', 'Notes', 'Time', 'Store', 'Type'];
 
 function doGet(event) {
   const params = event.parameter || {};
@@ -13,12 +13,16 @@ function doGet(event) {
   ensureHeaders(sheet);
   if (params.action === 'add') {
     const time = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'h:mm a');
-    sheet.appendRow([params.date, params.item, params.category || 'General', params.amount, params.notes || '', time, params.store]);
+    sheet.appendRow([params.date, params.item, params.category || 'General', params.amount, params.notes || '', time, params.store || '', 'Purchase']);
+  } else if (params.action === 'income') {
+    const time = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'h:mm a');
+    sheet.appendRow([params.date, params.source, 'Income', params.amount, params.notes || '', time, '', 'Income']);
   }
   const values = sheet.getDataRange().getDisplayValues();
   const rows = values.slice(1).slice(-20).reverse().map(row => Object.fromEntries(HEADERS.map((key, index) => [key, row[index] || ''])));
   const stores = [...new Set(values.slice(1).map(row => String(row[6] || '').trim()).filter(Boolean))].sort();
-  return jsonp(params.callback, { rows: rows, stores: stores, added: params.action === 'add' });
+  const entries = values.slice(1).map(row => ({ date: row[0], amount: Number(String(row[3] || '').replace(/[^0-9.-]/g, '')) || 0, type: row[7] === 'Income' ? 'Income' : 'Purchase', category: row[2] || 'General' }));
+  return jsonp(params.callback, { rows: rows, stores: stores, entries: entries, added: ['add', 'income'].includes(params.action) });
 }
 
 function ensureHeaders(sheet) {
@@ -29,6 +33,9 @@ function ensureHeaders(sheet) {
   }
   if (sheet.getRange(1, 7).getDisplayValue() !== 'Store') {
     sheet.getRange(1, 7).setValue('Store');
+  }
+  if (sheet.getRange(1, 8).getDisplayValue() !== 'Type') {
+    sheet.getRange(1, 8).setValue('Type');
   }
 }
 
