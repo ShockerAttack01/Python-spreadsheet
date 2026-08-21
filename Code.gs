@@ -1,9 +1,14 @@
 const SHEET_ID = '1TUwR0vjcqEkGqFDc4nuekuN2wOgjQiJr2-N6JWCMlZc';
 const SHEET_NAME = 'Sheet1';
+const ALLOWED_EMAIL = 'fortnitekai77@gmail.com';
 const HEADERS = ['Date', 'Item', 'Category', 'Amount', 'Notes'];
 
 function doGet(event) {
   const params = event.parameter || {};
+  const activeEmail = Session.getActiveUser().getEmail().toLowerCase();
+  if (activeEmail !== ALLOWED_EMAIL.toLowerCase()) {
+    return jsonp(params.callback, { error: 'Access denied.' });
+  }
   const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
   ensureHeaders(sheet);
   if (params.action === 'add') {
