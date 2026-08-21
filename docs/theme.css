@@ -1,0 +1,33 @@
+/* Money Tracker theme variables.
+   Edit these values to change the page without touching index.html. */
+:root {
+  color-scheme: dark;
+
+  /* Page background and large surfaces */
+  --paper: #111312;
+  --card: #1b1e1c;
+  --field: #242825;
+  --shadow: #29251e;
+  --tooltip: #151817;
+  --glow: #4b2b26;
+
+  /* Text and borders */
+  --ink: #f4f0e8;
+  --white: #fffaf2;
+  --muted: #9ba39e;
+  --placeholder: #707872;
+  --line: #3a403c;
+
+  /* Actions and status */
+  --accent: #ed684d;
+  --success: #a8d8c1;
+  --error: #ff9a83;
+
+  /* Chart series and chart states */
+  --spent: #ed684d;
+  --earned: #80bfff;
+  --overlap: #fffaf2;
+  --empty: #69746d;
+  --grid: #303732;
+  --axis: #8f9b94;
+}

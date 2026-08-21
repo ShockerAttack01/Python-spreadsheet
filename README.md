@@ -19,6 +19,8 @@ Share the spreadsheet with the Google account that owns the Apps Script project.
 
 The sheet uses a `Type` column to distinguish `Purchase` and `Income` rows. The Overview tab calculates spent, earned, and balance for today, this week, this month, or this year and plots the matching entries.
 
+To customize the appearance, edit `docs/theme.css`. Its variables are grouped by page surfaces, text, actions, and chart states; GitHub Pages loads that file automatically.
+
 The Apps Script URL is visible in the page, but requests are restricted to your Google account. Keep the spreadsheet private and never commit `credentials.json`; revoke the service-account key that was exposed during setup before using the Flask version or deploying it elsewhere.
 
 ## Local Flask version
