@@ -17,7 +17,7 @@
     <label>What did you buy?<input name="item" autocomplete="off" placeholder="Coffee and sandwich" required></label><div class="fields"><label>Category<select name="category"><option>General</option><option>Food</option><option>Transport</option><option>Home</option><option>Health</option><option>Fun</option></select></label><label>Notes<input name="notes" autocomplete="off" placeholder="Optional"></label></div>
     <button type="submit">Add purchase</button><div class="status" id="status" role="status"></div></form></section><section class="recent"><h2>Recent purchases</h2><div id="recent-list"><p class="intro">Loading...</p></div></section>
   </main><script>
-    const API_URL = 'PASTE_APPS_SCRIPT_WEB_APP_URL_HERE';
+    const API_URL = 'https://script.google.com/macros/s/AKfycbydnUHEElqkIZW-3RL94Li4Xa0C34RaGN5fdh32hWTdMMT5PMM5IpRlusuEdvAeP0Vi/exec';
     const form = document.querySelector('#purchase-form'), status = document.querySelector('#status'), recentList = document.querySelector('#recent-list');
     form.date.value = new Date().toISOString().slice(0, 10);
     const money = value => Number(value || 0).toLocaleString(undefined, { style: 'currency', currency: 'USD' });
