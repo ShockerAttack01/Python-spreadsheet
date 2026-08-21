@@ -61,7 +61,7 @@ function mergeCsv(sheet, encodedCsv) {
     const isIncome = get('type').toLowerCase() === 'income' || transaction === 'credit' || transaction.includes('credit');
     const item = get('item') || get('source') || get('name') || get('transaction') || get('memo');
     const amount = Number.isFinite(rawAmount) ? Math.abs(rawAmount).toFixed(2) : '';
-    const values = [get('date'), item, get('category') || (isIncome ? 'Income' : 'General'), amount, get('notes') || get('memo'), get('time'), get('store'), isIncome ? 'Income' : 'Purchase'];
+    const values = [get('date'), item, get('category') || (isIncome ? 'Income' : 'General'), amount, get('notes') || get('memo'), get('time') || 'Time not provided', get('store'), isIncome ? 'Income' : 'Purchase'];
     if (!values[0] || !values[1] || !values[3]) return;
     if (!existing.has(rowSignature(values))) { additions.push(values); existing.add(rowSignature(values)); }
   });
