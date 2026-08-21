@@ -56,7 +56,12 @@ function mergeCsv(sheet, encodedCsv) {
   const additions = [];
   rows.forEach(row => {
     const get = name => { const index = headers.indexOf(name); return index >= 0 ? String(row[index] || '').trim() : ''; };
-    const values = [get('date'), get('item') || get('source'), get('category') || (get('type').toLowerCase() === 'income' ? 'Income' : 'General'), get('amount'), get('notes'), get('time'), get('store'), get('type') || 'Purchase'];
+    const transaction = get('transaction').toLowerCase();
+    const rawAmount = Number(get('amount').replace(/[$,]/g, ''));
+    const isIncome = get('type').toLowerCase() === 'income' || transaction === 'credit' || transaction.includes('credit');
+    const item = get('item') || get('source') || get('name') || get('transaction') || get('memo');
+    const amount = Number.isFinite(rawAmount) ? Math.abs(rawAmount).toFixed(2) : '';
+    const values = [get('date'), item, get('category') || (isIncome ? 'Income' : 'General'), amount, get('notes') || get('memo'), get('time'), get('store'), isIncome ? 'Income' : 'Purchase'];
     if (!values[0] || !values[1] || !values[3]) return;
     if (!existing.has(rowSignature(values))) { additions.push(values); existing.add(rowSignature(values)); }
   });
