@@ -21,7 +21,7 @@ function doGet(event) {
   const values = sheet.getDataRange().getDisplayValues();
   const rows = values.slice(1).slice(-20).reverse().map(row => Object.fromEntries(HEADERS.map((key, index) => [key, row[index] || ''])));
   const stores = [...new Set(values.slice(1).map(row => String(row[6] || '').trim()).filter(Boolean))].sort();
-  const entries = values.slice(1).map(row => ({ date: row[0], amount: Number(String(row[3] || '').replace(/[^0-9.-]/g, '')) || 0, type: row[7] === 'Income' ? 'Income' : 'Purchase', category: row[2] || 'General', store: row[6] || '', time: row[5] || '', item: row[1] || '' }));
+  const entries = values.slice(1).map(row => ({ date: row[0], amount: Number(String(row[3] || '').replace(/[^0-9.-]/g, '')) || 0, type: String(row[7] || '').trim().toLowerCase() === 'income' || String(row[2] || '').trim().toLowerCase() === 'income' ? 'Income' : 'Purchase', category: row[2] || 'General', store: row[6] || '', time: row[5] || '', item: row[1] || '' }));
   return jsonp(params.callback, { rows: rows, stores: stores, entries: entries, added: ['add', 'income'].includes(params.action) });
 }
 
