@@ -3,3 +3,7 @@
 __pycache__/
 .venv/
 *.pyc
+/Code.gs
+/main.py
+/requirements.txt
+/templates/
