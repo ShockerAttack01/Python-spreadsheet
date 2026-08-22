@@ -4,12 +4,12 @@
   color-scheme: dark;
 
   /* Page background and large surfaces */
-  --paper: #0ff582;
-  --card: #08ee55;
-  --field: #18e74c;
-  --shadow: #e2950f;
-  --tooltip: #26e4a4;
-  --glow: #db3c24;
+  --paper: #111312;
+  --card: #1b1e1c;
+  --field: #242825;
+  --shadow: #29251e;
+  --tooltip: #151817;
+  --glow: #4b2b26;
 
   /* Text and borders */
   --ink: #f4f0e8;
